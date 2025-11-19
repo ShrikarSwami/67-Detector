@@ -30,7 +30,6 @@ POPUP_WIDTH = 800                  # width to resize popup gif frames
 
 
 def get_screen_size():
-    """Return (screen_width, screen_height). Falls back to 1920x1080 if tkinter not available."""
     try:
         import tkinter as tk
         root = tk.Tk()
@@ -40,9 +39,10 @@ def get_screen_size():
         root.destroy()
         print(f"[screen] detected screen size: {w}x{h}")
         return w, h
-    except Exception as e:
-        print("[screen] could not determine screen size, using fallback 1920x1080. Error:", e)
+    except Exception:
+        print("[screen] tkinter not available, using default 1920x1080")
         return 1920, 1080
+
 
 
 def get_average_wrist_height(results):
@@ -179,7 +179,11 @@ def create_popup_windows(popup_gifs, screen_size):
         name = f"67POP_{i}"
 
         cv2.namedWindow(name, cv2.WINDOW_NORMAL)
-        cv2.setWindowProperty(name, cv2.WND_PROP_TOPMOST, 1)
+        try:
+            cv2.setWindowProperty(name, cv2.WND_PROP_TOPMOST, 1)
+        except Exception:
+            # Some platforms or backends may not support this, so we just ignore it
+            pass
 
         sample = seq[0]
         h_img, w_img = sample.shape[:2]
@@ -237,7 +241,12 @@ def shuffle_one_popup_window(popup_windows, popup_gifs, screen_size):
 
     seq = random.choice(popup_gifs)
     cv2.namedWindow(name, cv2.WINDOW_NORMAL)
-    cv2.setWindowProperty(name, cv2.WND_PROP_TOPMOST, 1)
+    try:
+        cv2.setWindowProperty(name, cv2.WND_PROP_TOPMOST, 1)
+    except Exception:
+        # Some platforms or backends may not support this, so we just ignore it
+        pass
+
 
     sample = seq[0]
     h_img, w_img = sample.shape[:2]

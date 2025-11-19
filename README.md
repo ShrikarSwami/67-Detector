@@ -1,20 +1,20 @@
 # 67 Detector
 
-A tiny computer vision toy that detects the viral "6 7" hand motion and turns it into a mini light show with music.
+A tiny computer vision toy that detects the viral "6 7" hand motion and turns it into a mini light show with music. (67)
 
-The "6 7 motion" is a palm up, bounce style gesture: both hands move up and down like a scale, usually while someone says "six seven". This project watches your webcam, tracks your wrists with MediaPipe Hands, and when it sees you doing the motion enough times it:
+The "6 7 motion" is a palm up, bounce style gesture: both hands move up and down like a scale, usually while someone says "six seven". This project watches your webcam, tracks your wrists with MediaPipe Hands (my favorite library), and when it sees you doing the motion enough times it:
 
 - Shows a HUD with live motion info
 - Plays a theme song
-- Adds soft white flashes over the video timed to your movement
+- Adds soft white flashes over the video timed to your movement so it looks like you're in a velocity edit
 
 When you stop, everything fades out and the app resets so you can start again.
 
 ## Features
 
-- Real time wrist tracking with MediaPipe Hands
+- Real-time wrist tracking with MediaPipe Hands
 - One or two hands work
-- Direction change based motion logic
+- Direction change based on motion logic
 - Party mode after a set number of up and down bounces
 - Automatic reset when you stop moving
 - Music playback with pygame mixer

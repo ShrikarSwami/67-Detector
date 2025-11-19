@@ -1,12 +1,17 @@
-import time
-import os
-import random
+import time #This import is used for time tracking throughout the program
+import os #This import is used for file and directory operations as well as ideentify the users system
+import random #This import is used for generating random numbers and selections
 
-import cv2
-import mediapipe as mp
-import pygame
-import imageio
+import cv2 #This import is used for computer vision tasks such as image processing and displaying windows
+import mediapipe as mp #This import is used for hand tracking and landmark detection
+import pygame  #This import is used for audio playback and music control
+import imageio #This import is used for reading and processing image files, including GIFs
 
+"""
+------------------------------------------------------------------------------------------------------
+These are all the configuration constants used in the 67 Detector program adjust them to your liking.
+------------------------------------------------------------------------------------------------------
+"""
 # Motion tuning
 MOVEMENT_THRESHOLD = 0.0025        # smaller value = more sensitive to quick moves
 DIRECTION_CHANGE_TARGET = 4        # number of direction changes needed to trigger 67 mode
@@ -19,32 +24,37 @@ FLASH_INTENSITY_BASE = 0.3         # base flash brightness (lighter)
 FLASH_INTENSITY_SCALE = 3.0        # extra brightness from motion
 
 # Audio
-MUSIC_FILE = "six_seven_theme.mp3"
+MUSIC_FILE = "six_seven_theme.mp3"  #Before running, ensure this file is in the same directory as the script
 
 # Popup settings (OpenCV windows)
 POPUP_FOLDER = "popups"            # folder containing your gif files
 POPUP_DELAY_SECONDS = 5.0          # seconds after music starts in 67 mode before popups start
 POPUP_SHUFFLE_INTERVAL = 0.1      # seconds between "close one and reopen on top" events
-POPUP_NUM_WINDOWS = 20              # how many popup windows at once (matches your seven gifs)
-POPUP_WIDTH = 800                  # width to resize popup gif frames
+POPUP_NUM_WINDOWS = 18              # how many popup windows at once (matches your seven gifs)
+POPUP_WIDTH = 700                  # width to resize popup gif frames
 
+"""------------------------------------------------------------------------------------------------------
+Below are all the functions and main program logic for the 67 Detector.
+---------------------------------------------------------------------------------------------------------
+"""
 
+#This function attempts to get the screen size using tkinter, if it fails it defaults to 1920x1080
 def get_screen_size():
     try:
-        import tkinter as tk
-        root = tk.Tk()
-        root.withdraw()
-        w = root.winfo_screenwidth()
-        h = root.winfo_screenheight()
-        root.destroy()
-        print(f"[screen] detected screen size: {w}x{h}")
-        return w, h
-    except Exception:
-        print("[screen] tkinter not available, using default 1920x1080")
-        return 1920, 1080
+        import tkinter as tk #This import is used for getting the screen size
+        root = tk.Tk() #Create a tkinter root window
+        root.withdraw() #Hide the root window
+        w = root.winfo_screenwidth() #Get the screen width
+        h = root.winfo_screenheight() #Get the screen height
+        root.destroy() #Destroy the root window
+        print(f"[screen] detected screen size: {w}x{h}") #Print the detected screen size
+        return w, h #Return the screen width and height
+    except Exception: #If there is an exception, such as tkinter not being available or some other bug
+        print("[screen] tkinter not available, using default 1920x1080") #Print a message indicating the default size is being used
+        return 1920, 1080 #Return the default screen size of 1920x1080
 
 
-
+# Function to get the average wrist height from hand landmarks because we track wrist y position
 def get_average_wrist_height(results):
     """Return average wrist y in normalized coordinates, or None if no hands."""
     if not results or not results.multi_hand_landmarks:
@@ -59,7 +69,7 @@ def get_average_wrist_height(results):
         return None
     return sum(ys) / len(ys)
 
-
+# Function to apply a flash effect to a frame by overlaying a white rectangle with specified intensity
 def apply_flash_effect(frame, intensity=0.5):
     """Overlay a white flash on the frame."""
     overlay = frame.copy()
@@ -67,7 +77,7 @@ def apply_flash_effect(frame, intensity=0.5):
     cv2.rectangle(overlay, (0, 0), (w, h), (255, 255, 255), -1)
     return cv2.addWeighted(overlay, intensity, frame, 1 - intensity, 0)
 
-
+# Function to load music file using pygame mixer so it can be played later
 def load_music():
     """Load the music file from the same folder as this script."""
     try:
@@ -84,19 +94,19 @@ def load_music():
         print("[audio] Error loading music:", e)
         return False
 
-
+# Function to start playing music in a loop using pygame mixer if not already playing
 def start_music():
     if not pygame.mixer.music.get_busy():
         pygame.mixer.music.play(-1)
         print("[audio] Music started")
 
-
+# Function to stop playing music using pygame mixer if it is currently playing
 def stop_music():
     if pygame.mixer.music.get_busy():
         pygame.mixer.music.stop()
         print("[audio] Music stopped")
 
-
+# Function to load popup gifs from the specified folder and resize them for display 
 def load_popup_gifs():
     """
     Load all gifs and images from POPUP_FOLDER.
@@ -160,7 +170,7 @@ def load_popup_gifs():
     return all_sequences
 
 
-
+# Function to create popup windows displaying random gifs at random positions on the screen very quickly
 def create_popup_windows(popup_gifs, screen_size):
     """
     Create POPUP_NUM_WINDOWS OpenCV windows showing random gifs
@@ -208,7 +218,7 @@ def create_popup_windows(popup_gifs, screen_size):
 
 
 
-
+# Function to destroy all popup windows and clear the list so no windows remain open
 def destroy_popup_windows(popup_windows):
     """Close all popup windows and clear list."""
     for w in popup_windows:
@@ -219,7 +229,7 @@ def destroy_popup_windows(popup_windows):
     popup_windows.clear()
     print("[popup] destroyed all popup windows")
 
-
+# Function to shuffle one popup window by closing it and reopening it with a random gif at a new position
 def shuffle_one_popup_window(popup_windows, popup_gifs, screen_size):
     """
     Close one existing popup window and reopen it with a random gif
@@ -269,7 +279,7 @@ def shuffle_one_popup_window(popup_windows, popup_gifs, screen_size):
     return popup_windows
 
 
-
+# Main program logic 
 def main():
     print("[core] starting 67 Detector v12 full_screen_popups")
 

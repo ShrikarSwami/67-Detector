@@ -1,5 +1,5 @@
 # **67-Detector 🎉🖐️💥**
-So… I accidentally made the most unhinged hand-tracking program ever.  
+So… I  made the most unhinged hand-tracking program ever.  
 If you’ve ever wanted your computer to celebrate your 6-7 motion like it's a TikTok velocity edit from 2019, congratulations — this is exactly that.
 
 Demo video 🡆 https://youtu.be/Ia8huYv7qrs  
@@ -7,21 +7,19 @@ Demo video 🡆 https://youtu.be/Ia8huYv7qrs
 
 ---
 
-## **✨ What This Actually Does (Friend to Friend Explanation)**
-
-Alright, here’s the deal:
+## **✨ What This Actually Does **
 
 You wave your hands up and down a few times (like doing a **6-7 dance**).  
 The program goes:
 
-> “OH BET? YOU'RE LOCKED IN??”  
+> “He's doing it! HE'S DOING IT!”  
 
-It starts flashing your webcam feed, blasting music, and after about 5 seconds of pure certified movement, your screen will suddenly get hit with an **avalanche of GIF popup windows**.
+It starts flashing your webcam feed, blasting music, and then at a very specific point, your screen will suddenly get hit with an **avalanche of GIF popup windows**.
 
 They move.  
 They shuffle.  
 They multiply.  
-They behave like a virus except they’re just memes.
+They behave like a virus except they’re just memes, and when you press 'q', it stops.
 
 If you stop moving?  
 Everything resets like nothing happened.
@@ -39,12 +37,12 @@ It’s essentially a **boss battle intro animation** but activated by your hands
 - After 5 seconds of hype, spams your screen with **GIF pop-ups**  
 - Pop-ups move around randomly like chaotic fireworks  
 - Auto resets when you stop moving  
-- Works on **macOS** and **Windows**  
+- Works on **macOS** and **Windows** (cross compatability)  
 - Makes you question your life choices (in a fun way)  
 
 ---
 
-## **📂 Folder Layout**
+## **📂 Folder Layout (Serious stuff now)**
 
 ```
 67-Detector/
@@ -198,4 +196,4 @@ If you enjoyed it, laughed, or your laptop started sounding like a spaceship:
 
 **Please star the repo ⭐ — it genuinely helps.**
 
-Enjoy the madness, king 😎  
+Enjoy the madness, twin 🤞😎  

@@ -30,8 +30,8 @@ MUSIC_FILE = "six_seven_theme.mp3"  #Before running, ensure this file is in the 
 POPUP_FOLDER = "popups"            # folder containing your gif files
 POPUP_DELAY_SECONDS = 5.0          # seconds after music starts in 67 mode before popups start
 POPUP_SHUFFLE_INTERVAL = 0.1      # seconds between "close one and reopen on top" events
-POPUP_NUM_WINDOWS = 18              # how many popup windows at once (matches your seven gifs)
-POPUP_WIDTH = 700                  # width to resize popup gif frames
+POPUP_NUM_WINDOWS = 20              # how many popup windows at once (matches your seven gifs)
+POPUP_WIDTH = 800                  # width to resize popup gif frames
 
 """------------------------------------------------------------------------------------------------------
 Below are all the functions and main program logic for the 67 Detector.

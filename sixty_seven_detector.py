@@ -94,7 +94,7 @@ def load_music():
         print("[audio] Error loading music:", e)
         return False
 
-# Function to start playing music in a loop using pygame mixer if not already playing
+# Functiopip install -r requirements.txtn to start playing music in a loop using pygame mixer if not already playing
 def start_music():
     if not pygame.mixer.music.get_busy():
         pygame.mixer.music.play(-1)
